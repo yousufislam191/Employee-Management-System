@@ -1,20 +1,21 @@
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-// import javax.swing.border.*;
+import javax.swing.border.*;
 import java.util.regex.*;
 
 public class signin extends JFrame {
 
     private JPanel headerPanel, body;
     private JLabel heading, email, pass, registertxt, ortxt, logolabel;
-    private JTextField userEmail, userPass;
+    private JTextField userEmail;
     private JButton signinBtn, registerBtn;
     private Cursor cursor = new Cursor(Cursor.HAND_CURSOR);
     private ImageIcon icon, logo;
+    private JCheckBox checkBox;
+    private JPasswordField userPass;
     
     private JLabel[] label = new JLabel[2];
-    private JTextField[] textFields = new JTextField[2];
     
     private Font headingfont = new Font("Courier", Font.BOLD, 20);
     private Font txtfont = new Font("Arial", Font.BOLD, 13);
@@ -73,27 +74,36 @@ public class signin extends JFrame {
 
         //input field
         userEmail = new JTextField();
-        userPass = new JTextField();
-
         userEmail.setBounds(50, 140, 290, 30);
+        userEmail.setBackground(Color.WHITE);
+        userEmail.setForeground(Color.BLACK);
+        userEmail.setFont(txtfont);
+        userEmail.setBorder(null);
+        body.add(userEmail);
+
+        userPass = new JPasswordField();
         userPass.setBounds(50, 220, 290, 30);
+        userPass.setBackground(Color.WHITE);
+        userPass.setForeground(Color.BLACK);
+        userPass.setFont(txtfont);
+        userPass.setBorder(null);
+        body.add(userPass);
 
-        textFields[0] = userEmail;
-        textFields[1] = userPass;
-
-        for(int i=0; i<2; i++) {
-            textFields[i].setBackground(Color.WHITE);
-            textFields[i].setForeground(Color.BLACK);
-            textFields[i].setFont(txtfont);
-            body.add(textFields[i]);
-        }
+        //checkbox add
+        checkBox = new JCheckBox("Show Password");
+        checkBox.setBounds(50, 260, 120, 15);
+        checkBox.setBackground(null);
+        checkBox.setForeground(new Color(173, 239, 209));
+        checkBox.setBorder(null);
+        body.add(checkBox);
 
         //button add
         signinBtn = new JButton("Sign in");
-        signinBtn.setBounds(50, 280, 290, 25);
+        signinBtn.setBounds(50, 300, 290, 25);
         signinBtn.setBackground(new Color(173, 239, 209));
         signinBtn.setForeground(Color.BLACK);
         signinBtn.setCursor(cursor);
+        signinBtn.setBorder(BorderFactory.createLineBorder(Color.WHITE));
         body.add(signinBtn);
 
         registerBtn = new JButton("Register now");
@@ -113,11 +123,25 @@ public class signin extends JFrame {
         ortxt = new JLabel("---------------------------------- Or ---------------------------------");
         ortxt.setForeground(Color.WHITE);
         ortxt.setFont(txtfont);
-        ortxt.setBounds(50, 340, 300, 15);
+        ortxt.setBounds(50, 350, 300, 15);
         body.add(ortxt);
 
         
         setVisible(true);
+        
+        checkBox.addActionListener(new ActionListener() {
+            
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+               if(checkBox.isSelected()) {
+                    userPass.setEchoChar((char)0);
+               }
+               else {
+                   userPass.setEchoChar('\u25CF');
+               }
+            }
+        });
 
         registerBtn.addActionListener(new ActionListener() {
             
@@ -136,7 +160,7 @@ public class signin extends JFrame {
                 String signinUserPass = userPass.getText();
                 String signinQuery = "SELECT * FROM `admin`";
 
-                String emailRegex="[a-z0-9.]+@[a-z]+.[a-z]+$";
+                String emailRegex="[a-z0-9.]+@[a-z]+[].[a-z]]+$";
                 String passRegex= "\\S+.{9,}$";
 
                 if (!Pattern.matches(emailRegex,signinUserEmail)){
