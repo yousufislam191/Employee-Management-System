@@ -39,12 +39,12 @@ public class DbConnect {
                     break;
                 }
             }
-            if(flag == 0) {
-                JOptionPane.showMessageDialog(null, "wrong username & password");
-            }
-            else if(signinUserEmail.equals(adminemail) && signinUserPass.equals(adminpass)) {
+            if(signinUserEmail.equals(adminemail) && signinUserPass.equals(adminpass)) {
                 JOptionPane.showMessageDialog(null, "Successfully Admin Panel login");
                 new admin();
+            }
+            else if(flag == 0) {
+                JOptionPane.showMessageDialog(null, "wrong username & password");
             }
             else {
                 JOptionPane.showMessageDialog(null, "Successfully User login");

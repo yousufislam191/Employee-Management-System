@@ -160,7 +160,7 @@ public class signin extends JFrame {
                 String signinUserPass = userPass.getText();
                 String signinQuery = "SELECT * FROM `admin`";
 
-                String emailRegex="[a-z0-9.]+@[a-z]+[].[a-z]]+$";
+                String emailRegex="[a-z0-9.]+@[a-z]+[.[a-z]]+$";
                 String passRegex= "\\S+.{9,}$";
 
                 if (!Pattern.matches(emailRegex,signinUserEmail)){
