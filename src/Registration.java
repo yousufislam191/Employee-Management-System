@@ -12,14 +12,14 @@ public class Registration extends JFrame {
     private JLabel heading, addImageLabel, photoFormate, addImgLabel, email, logolabel, firstName, lastName, contactNumber, dateOfBirth, parmanentAddress, currentAddress, bloodGroup, confirmPassword, password, dateFormate, ortxt, gender;
     private JTextField inputFirstName, inputLastName, inputContactNumber, inputEmail, inputDateOfBirth, inputParmanentAddress, inputCurrentAddress, inputBloodGroup;
     private JButton addImageBtn, signinBtn, registerBtn;
-    private Cursor cursor = new Cursor(Cursor.HAND_CURSOR);
     private ImageIcon icon, addImage, logo, chooseImage;
     private JCheckBox checkBox;
     private JPasswordField inputPassword, inputConfirmPassword;
     private JRadioButton male, female;
     private JFileChooser fileChooser;
-    private String imagePath;
+    private String imagePath, ugender;
     private int flag = 0;
+    private Cursor cursor = new Cursor(Cursor.HAND_CURSOR);
 
     private JLabel[] label = new JLabel[11];
     private JTextField[] textFields = new JTextField[8];
@@ -38,8 +38,8 @@ public class Registration extends JFrame {
         setLayout(null);
 
         // icon set
-        icon = new ImageIcon(getClass().getResource(".//image//icon.jpg"));
-        setIconImage(icon.getImage());
+        // icon = new ImageIcon(getClass().getResource(".//image//icon.jpg"));
+        // setIconImage(icon.getImage());
 
         // body panel add
         body = new JPanel();
@@ -49,10 +49,10 @@ public class Registration extends JFrame {
         add(body);
 
         // logo add
-        logo = new ImageIcon(getClass().getResource(".//image//R_logo.png"));
-        logolabel = new JLabel(logo);
-        logolabel.setBounds(30, 10, logo.getIconWidth(), logo.getIconHeight());
-        body.add(logolabel);
+        // logo = new ImageIcon(getClass().getResource(".//image//R_logo.png"));
+        // logolabel = new JLabel(logo);
+        // logolabel.setBounds(30, 10, logo.getIconWidth(), logo.getIconHeight());
+        // body.add(logolabel);
 
         heading = new JLabel("Employee Registration");
         heading.setFont(headingfont);
@@ -70,7 +70,7 @@ public class Registration extends JFrame {
         addImgLabel.setBounds(80, 130, addImage.getIconWidth(), addImage.getIconHeight());
         body.add(addImgLabel);
 
-        addImageBtn = new JButton("Chooses File");
+        addImageBtn = new JButton("Choose File");
         addImageBtn.setBounds(280, 110, 110, 30);
         addImageBtn.setBackground(new Color(173, 239, 209));
         addImageBtn.setForeground(Color.BLACK);
@@ -292,8 +292,7 @@ public class Registration extends JFrame {
                         if (result == JFileChooser.APPROVE_OPTION) {
                             File file = fileChooser.getSelectedFile();
                             imagePath = file.getAbsolutePath();
-                            chooseImage = new ImageIcon(new ImageIcon(imagePath).getImage().getScaledInstance(200, 200,
-                                    Image.SCALE_DEFAULT));
+                            chooseImage = new ImageIcon(new ImageIcon(imagePath).getImage().getScaledInstance(200, 200, Image.SCALE_DEFAULT));
                             addImageLabel.setIcon(chooseImage);
                             flag = 1;
                         } else if (result == JFileChooser.CANCEL_OPTION) {
@@ -326,14 +325,16 @@ public class Registration extends JFrame {
                 String udob = inputDateOfBirth.getText();
                 String ucontactnumber = inputContactNumber.getText();
                 String ubloodgroup = inputBloodGroup.getText();
-                String umale = male.getText(); // radio
-                String ufemale = female.getText(); // radio
+                // String umale = male.getText(); // radio
+                // String ufemale = female.getText(); // radio
+                // String ugender;
                 String uemail = inputEmail.getText();
                 String upass = inputPassword.getText();
                 String ucpass = inputConfirmPassword.getText();
                 String upaddress = inputParmanentAddress.getText();
                 String ucaddress = inputCurrentAddress.getText();
-                // File uimage = addImageLabel.getImage();
+                String uimage = addImageLabel.getText();
+                uimage = uimage.replace("\\", "\\\\");
 
                 // validation input field
                 String nameRegex = "^[a-zA-Z. ]+$";
@@ -371,6 +372,27 @@ public class Registration extends JFrame {
                     JOptionPane.showMessageDialog(null, "Select your gender");
                 }
 
+                // else if ((male.isSelected()) || (female.isSelected())) {
+
+                //     if (male.isSelected()) {
+                //         ugender = "Male";
+                //     }
+                //     else if (female.isSelected()) {
+                //         ugender = "Female";
+                //     }
+                //     else {
+                //         JOptionPane.showMessageDialog(null, "gender error");
+                //     }
+                // }
+
+                // else if (male.isSelected()) {
+                //     ugender = "Male";
+                // }
+
+                // else if (female.isSelected()) {
+                //     ugender = "Female";
+                // }
+
                 else if (!Pattern.matches(emailRegex, uemail)) {
                     JOptionPane.showMessageDialog(null, "In-valid E-mail");
                 }
@@ -397,7 +419,18 @@ public class Registration extends JFrame {
                 }
 
                 else {
-                    JOptionPane.showMessageDialog(null, "Registration Successfully");
+                    //for register query 
+                    try {
+                        DbConnect db = new DbConnect();
+                        String queryInsert = "INSERT INTO `employeeregistration`(`fastname`,`lastname`, `dob`, `contact`, `image`, `bloodgroup`, `gender`, `email`,`password`, `Paddress`, `Caddress`) VALUES ('"+ufname+"','"+ulname+"','"+udob+"','"+ucontactnumber+"','"+uimage+"','"+ubloodgroup+"','"+ugender+"','"+uemail+"','"+upass+"','"+upaddress+"','"+ucaddress+"')";
+                        db.st.executeUpdate(queryInsert);
+                        JOptionPane.showMessageDialog(null, "Registration Complete Successfully");
+                        dispose();
+                        new signin();
+                    } 
+                    catch (Exception e3) {
+                        JOptionPane.showMessageDialog(null, "Not Inserted any Data !!" +e3);
+                    }
                 }
             }
         });

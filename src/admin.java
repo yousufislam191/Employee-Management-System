@@ -5,8 +5,11 @@ import java.awt.event.*;
 
 public class admin extends JFrame implements ActionListener {
 
-    // private JPanel headerPanel;
-    // private JLabel heading;
+    private JPanel body;
+    private ImageIcon icon, logo;
+    private JLabel logolabel, heading;
+
+    private Font headingfont = new Font("Courier", Font.BOLD, 35);
 
     JFrame f;
     JLabel l1,l2;
@@ -14,69 +17,63 @@ public class admin extends JFrame implements ActionListener {
 
     public admin()  {
 
-        // setSize(400, 550);
-        // setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        // setLocationRelativeTo(null);
-        // // setResizable(false);
-        // setLayout(null);
-        // setVisible(true);
+        setSize(900, 700);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setLocationRelativeTo(null);
+        setResizable(false);
+        setLayout(null);
 
-        // //header panel add
-        // headerPanel = new JPanel();
-        // headerPanel.setBounds(0, 0, 400, 40);
-        // headerPanel.setBackground(new Color(0, 32, 63));
-        
-        // heading = new JLabel("admin panel");
-        // heading.setForeground(new Color(173, 239, 209));
-        // headerPanel.add(heading);
-        // add(headerPanel);
+        // icon set
+        // icon = new ImageIcon(getClass().getResource(".//image//icon.jpg"));
+        // setIconImage(icon.getImage());
+
+        // body panel add
+        body = new JPanel();
+        body.setBounds(0, 0, 900, 700);
+        body.setBackground(new Color(0, 32, 63));
+        body.setLayout(null);
+        add(body);
+
+        // logo add
+        // logo = new ImageIcon(getClass().getResource(".//image//R_logo.png"));
+        // logolabel = new JLabel(logo);
+        // logolabel.setBounds(30, 10, logo.getIconWidth(), logo.getIconHeight());
+        // body.add(logolabel);
+
+        heading = new JLabel("Employee Details");
+        heading.setFont(headingfont);
+        heading.setForeground(new Color(173, 239, 209));
+        heading.setBounds(100, 12, 500, 45);
+        body.add(heading);
 
 
-        f=new JFrame("Employee Detail");
-        f.setBackground(Color.white);
-        f.setLayout(null);
-
-        l1 = new JLabel();
-        l1.setBounds(0,0,700,500);
-        l1.setLayout(null);
-        // ImageIcon i1 = new ImageIcon(ClassLoader.getSystemResource("src/details.jpg"));
-        // l1.setIcon(i1);
-        f.add(l1);
-
-        l2 = new JLabel("Employee Details");
-        l2.setBounds(430,20,200,40);
-        l2.setFont(new Font("serif",Font.BOLD,25));
-        l2.setForeground(Color.black);
-        l1.add(l2);
 
         b1=new JButton("Add");
         b1.setBounds(420,80,100,40);
         b1.setFont(new Font("serif",Font.BOLD,15));
         b1.addActionListener(this);
-        l1.add(b1);
+        body.add(b1);
 
 
         b2=new JButton("View");
         b2.setBounds(530,80,100,40);
         b2.setFont(new Font("serif",Font.BOLD,15));
         b2.addActionListener(this);
-        l1.add(b2);
+        body.add(b2);
 
         b3=new JButton("Remove");
         b3.setBounds(420,140,100,40);
         b3.setFont(new Font("serif",Font.BOLD,15));
         b3.addActionListener(this);
-        l1.add(b3);
+        body.add(b3);
 
         b4=new JButton("Update");
         b4.setBounds(530,140,100,40);
         b4.setFont(new Font("serif",Font.BOLD,15));
         b4.addActionListener(this);
-        l1.add(b4);
+        body.add(b4);
 
-        f.setVisible(true);
-        f.setSize(700,500);
-        f.setLocation(450,200);
+        setVisible(true);
     }
 
     public void actionPerformed(ActionEvent ae){
@@ -97,5 +94,8 @@ public class admin extends JFrame implements ActionListener {
             // new Search_Employee();
         }
     }
+    // public static void main(String[] args) {
+    //     new admin();
+    // }
     
 }

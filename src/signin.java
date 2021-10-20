@@ -1,6 +1,7 @@
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.sql.*;
 import javax.swing.border.*;
 import java.util.regex.*;
 
@@ -20,6 +21,9 @@ public class signin extends JFrame {
     private Font headingfont = new Font("Courier", Font.BOLD, 20);
     private Font txtfont = new Font("Arial", Font.BOLD, 13);
 
+    private ResultSet rs;
+    private int flag = 0;
+
     public signin () {
 
         setSize(400, 550);
@@ -29,8 +33,8 @@ public class signin extends JFrame {
         setLayout(null);
 
         //icon set
-        icon = new ImageIcon(getClass().getResource(".//image//icon.jpg"));
-        setIconImage(icon.getImage());
+        // icon = new ImageIcon(getClass().getResource(".//image//icon.jpg"));
+        // setIconImage(icon.getImage());
 
         //header panel add
         headerPanel = new JPanel();
@@ -51,10 +55,10 @@ public class signin extends JFrame {
         add(body);
 
         //logo add
-        logo = new ImageIcon(getClass().getResource(".//image//logo.png"));
-        logolabel = new JLabel(logo);
-        logolabel.setBounds(160, 10, logo.getIconWidth(), logo.getIconHeight());
-        body.add(logolabel);
+        // logo = new ImageIcon(getClass().getResource(".//image//logo.png"));
+        // logolabel = new JLabel(logo);
+        // logolabel.setBounds(160, 10, logo.getIconWidth(), logo.getIconHeight());
+        // body.add(logolabel);
 
         //naming label field
         email = new JLabel("Email : ");
@@ -158,7 +162,7 @@ public class signin extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 String signinUserEmail =  userEmail.getText();
                 String signinUserPass = userPass.getText();
-                String signinQuery = "SELECT * FROM `admin`";
+                String signinQuery = "SELECT * FROM `employeeregistration`";
 
                 String emailRegex="[a-z0-9.]+@[a-z]+[.[a-z]]+$";
                 String passRegex= "\\S+.{9,}$";
@@ -170,8 +174,46 @@ public class signin extends JFrame {
                     JOptionPane.showMessageDialog(null,"Your password must be 10 digits.");
                 }
                 else {
-                    DbConnect db = new DbConnect();
-                    db.Signin(signinQuery, signinUserEmail, signinUserPass);
+                    //for login query
+                    try {
+                        //admin email & pass 
+                        String adminemail = "admin.employeems@gmail.com";
+                        String adminpass = "@dm21InEMS#";
+            
+                        DbConnect db = new DbConnect();
+
+                        rs = db.st.executeQuery("select * from employeeregistration");
+                        rs = db.st.executeQuery(signinQuery);
+                        while(rs.next()) {
+                            String tableUserEmail = rs.getString(9);
+                            String tablePass = rs.getString(10);
+            
+                            if (signinUserEmail.equals(tableUserEmail) && signinUserPass.equals(tablePass)) {
+                                flag = 1;
+                                break;
+                            }
+                        }
+                        if(signinUserEmail.equals(adminemail) && signinUserPass.equals(adminpass)) {
+                            JOptionPane.showMessageDialog(null, "Successfully Admin Panel login");
+                            new admin();
+                        }
+                        else if(flag == 0) {
+                            JOptionPane.showMessageDialog(null, "wrong username & password");
+                        }
+                        else {
+                            JOptionPane.showMessageDialog(null, "Successfully User login");
+            
+                            // rs = st.executeQuery("SELECT * FROM `employeeregistration` WHERE email="+signinUserEmail);
+                            // DbConnect dbc = new DbConnect();
+                            // dbc.SelectRows(signinUserEmail);
+                            
+                            dispose();
+                            new userPanle();
+                        }
+                    }
+                    catch (Exception e2) {
+                        System.err.println("Login Error :"+e2);
+                    }
                 }
             }
         });
