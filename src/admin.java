@@ -78,8 +78,8 @@ public class admin extends JFrame implements ActionListener {
 
     public void actionPerformed(ActionEvent ae){
         if(ae.getSource()==b1){
-            f.setVisible(false);
-            // new Add_Employee();
+            setVisible(false);
+            new Add_Employee();
         }
         if(ae.getSource()==b2){
             f.setVisible(false);
