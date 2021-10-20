@@ -65,10 +65,10 @@ public class Registration extends JFrame {
         addImageLabel.setBorder(BorderFactory.createLineBorder(Color.WHITE));
         body.add(addImageLabel);
 
-        addImage = new ImageIcon(getClass().getResource(".//image//addimg.png"));
-        addImgLabel = new JLabel(addImage);
-        addImgLabel.setBounds(80, 130, addImage.getIconWidth(), addImage.getIconHeight());
-        body.add(addImgLabel);
+        // addImage = new ImageIcon(getClass().getResource(".//image//addimg.png"));
+        // addImgLabel = new JLabel(addImage);
+        // addImgLabel.setBounds(80, 130, addImage.getIconWidth(), addImage.getIconHeight());
+        // body.add(addImgLabel);
 
         addImageBtn = new JButton("Choose File");
         addImageBtn.setBounds(280, 110, 110, 30);
