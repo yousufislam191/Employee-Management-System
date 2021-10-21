@@ -24,8 +24,8 @@ public class admin extends JFrame implements ActionListener {
         setLayout(null);
 
         // icon set
-        // icon = new ImageIcon(getClass().getResource(".//image//icon.jpg"));
-        // setIconImage(icon.getImage());
+        icon = new ImageIcon(getClass().getResource(".//image//icon.jpg"));
+        setIconImage(icon.getImage());
 
         // body panel add
         body = new JPanel();
@@ -35,10 +35,10 @@ public class admin extends JFrame implements ActionListener {
         add(body);
 
         // logo add
-        // logo = new ImageIcon(getClass().getResource(".//image//R_logo.png"));
-        // logolabel = new JLabel(logo);
-        // logolabel.setBounds(30, 10, logo.getIconWidth(), logo.getIconHeight());
-        // body.add(logolabel);
+        logo = new ImageIcon(getClass().getResource(".//image//R_logo.png"));
+        logolabel = new JLabel(logo);
+        logolabel.setBounds(30, 10, logo.getIconWidth(), logo.getIconHeight());
+        body.add(logolabel);
 
         heading = new JLabel("Employee Details");
         heading.setFont(headingfont);

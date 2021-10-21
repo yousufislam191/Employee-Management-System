@@ -9,15 +9,15 @@ import java.util.regex.*;
 public class Registration extends JFrame {
 
     private JPanel body;
-    private JLabel heading, addImageLabel, photoFormate, addImgLabel, email, logolabel, firstName, lastName, contactNumber, dateOfBirth, parmanentAddress, currentAddress, bloodGroup, confirmPassword, password, dateFormate, ortxt, gender;
-    private JTextField inputFirstName, inputLastName, inputContactNumber, inputEmail, inputDateOfBirth, inputParmanentAddress, inputCurrentAddress, inputBloodGroup;
+    private JLabel heading, addImageLabel, photoFormate, addImgLabel, email, logolabel, firstName, designation, contactNumber, dateOfBirth, parmanentAddress, currentAddress, bloodGroup, confirmPassword, password, dateFormate, ortxt, gender;
+    private JTextField inputFirstName, inputDesignation, inputContactNumber, inputEmail, inputDateOfBirth, inputParmanentAddress, inputCurrentAddress, inputBloodGroup;
     private JButton addImageBtn, signinBtn, registerBtn;
     private ImageIcon icon, addImage, logo, chooseImage;
     private JCheckBox checkBox;
     private JPasswordField inputPassword, inputConfirmPassword;
     private JRadioButton male, female;
     private JFileChooser fileChooser;
-    private String imagePath, ugender;
+    private String imagePath, ugender = "";
     private int flag = 0;
     private Cursor cursor = new Cursor(Cursor.HAND_CURSOR);
 
@@ -34,12 +34,12 @@ public class Registration extends JFrame {
         setSize(900, 700);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
-        setResizable(false);
+        // setResizable(false);
         setLayout(null);
 
         // icon set
-        // icon = new ImageIcon(getClass().getResource(".//image//icon.jpg"));
-        // setIconImage(icon.getImage());
+        icon = new ImageIcon(getClass().getResource(".//image//icon.jpg"));
+        setIconImage(icon.getImage());
 
         // body panel add
         body = new JPanel();
@@ -49,10 +49,10 @@ public class Registration extends JFrame {
         add(body);
 
         // logo add
-        // logo = new ImageIcon(getClass().getResource(".//image//R_logo.png"));
-        // logolabel = new JLabel(logo);
-        // logolabel.setBounds(30, 10, logo.getIconWidth(), logo.getIconHeight());
-        // body.add(logolabel);
+        logo = new ImageIcon(getClass().getResource(".//image//R_logo.png"));
+        logolabel = new JLabel(logo);
+        logolabel.setBounds(30, 10, logo.getIconWidth(), logo.getIconHeight());
+        body.add(logolabel);
 
         heading = new JLabel("Employee Registration");
         heading.setFont(headingfont);
@@ -65,10 +65,10 @@ public class Registration extends JFrame {
         addImageLabel.setBorder(BorderFactory.createLineBorder(Color.WHITE));
         body.add(addImageLabel);
 
-        // addImage = new ImageIcon(getClass().getResource(".//image//addimg.png"));
-        // addImgLabel = new JLabel(addImage);
-        // addImgLabel.setBounds(80, 130, addImage.getIconWidth(), addImage.getIconHeight());
-        // body.add(addImgLabel);
+        addImage = new ImageIcon(getClass().getResource(".//image//addimg.png"));
+        addImgLabel = new JLabel(addImage);
+        addImgLabel.setBounds(80, 130, addImage.getIconWidth(), addImage.getIconHeight());
+        body.add(addImgLabel);
 
         addImageBtn = new JButton("Choose File");
         addImageBtn.setBounds(280, 110, 110, 30);
@@ -86,7 +86,7 @@ public class Registration extends JFrame {
 
         // naming label field
         firstName = new JLabel("First Name : ");
-        lastName = new JLabel("Last Name : ");
+        designation = new JLabel("Designation : ");
         contactNumber = new JLabel("Contact Number : ");
         email = new JLabel("Email : ");
         dateOfBirth = new JLabel("Date of Birth : ");
@@ -98,7 +98,7 @@ public class Registration extends JFrame {
         confirmPassword = new JLabel("Confirm Password: ");
 
         firstName.setBounds(550, 90, 100, 15);
-        lastName.setBounds(550, 160, 100, 15);
+        designation.setBounds(550, 160, 100, 15);
         contactNumber.setBounds(550, 230, 140, 15);
         dateOfBirth.setBounds(280, 230, 140, 15);
         bloodGroup.setBounds(50, 320, 140, 15);
@@ -110,7 +110,7 @@ public class Registration extends JFrame {
         currentAddress.setBounds(50, 540, 140, 15);
 
         label[0] = firstName;
-        label[1] = lastName;
+        label[1] = designation;
         label[2] = contactNumber;
         label[3] = email;
         label[4] = dateOfBirth;
@@ -129,7 +129,7 @@ public class Registration extends JFrame {
 
         // //input field
         inputFirstName = new JTextField();
-        inputLastName = new JTextField();
+        inputDesignation = new JTextField();
         inputContactNumber = new JTextField();
         inputEmail = new JTextField();
         inputDateOfBirth = new JTextField();
@@ -138,7 +138,7 @@ public class Registration extends JFrame {
         inputBloodGroup = new JTextField();
 
         inputFirstName.setBounds(550, 110, 270, 30);
-        inputLastName.setBounds(550, 180, 270, 30);
+        inputDesignation.setBounds(550, 180, 270, 30);
         inputContactNumber.setBounds(550, 250, 270, 30);
         inputDateOfBirth.setBounds(280, 250, 200, 30);
         inputBloodGroup.setBounds(50, 340, 270, 30);
@@ -147,7 +147,7 @@ public class Registration extends JFrame {
         inputCurrentAddress.setBounds(50, 560, 600, 30);
 
         textFields[0] = inputFirstName;
-        textFields[1] = inputLastName;
+        textFields[1] = inputDesignation;
         textFields[2] = inputContactNumber;
         textFields[3] = inputDateOfBirth;
         textFields[4] = inputBloodGroup;
@@ -221,6 +221,10 @@ public class Registration extends JFrame {
         body.add(ortxt);
 
         // //radio button add
+        ButtonGroup btngroup = new ButtonGroup();
+        btngroup.add(male);
+        btngroup.add(female);
+
         male = new JRadioButton("Male");
         male.setBounds(360, 340, 60, 20);
         male.setForeground(Color.WHITE);
@@ -261,6 +265,7 @@ public class Registration extends JFrame {
 
                 if (male.isSelected()) {
                     female.setSelected(false);
+                    ugender = "Male";
                 }
             }
         });
@@ -272,6 +277,7 @@ public class Registration extends JFrame {
 
                 if (female.isSelected()) {
                     male.setSelected(false);
+                    ugender = "Female";
                 }
             }
         });
@@ -321,13 +327,10 @@ public class Registration extends JFrame {
 
                 // get input text
                 String ufname = inputFirstName.getText();
-                String ulname = inputLastName.getText();
+                String udesignation = inputDesignation.getText();
                 String udob = inputDateOfBirth.getText();
                 String ucontactnumber = inputContactNumber.getText();
                 String ubloodgroup = inputBloodGroup.getText();
-                // String umale = male.getText(); // radio
-                // String ufemale = female.getText(); // radio
-                // String ugender;
                 String uemail = inputEmail.getText();
                 String upass = inputPassword.getText();
                 String ucpass = inputConfirmPassword.getText();
@@ -350,7 +353,7 @@ public class Registration extends JFrame {
                     JOptionPane.showMessageDialog(null, "In-valid First Name");
                 }
 
-                else if (!Pattern.matches(nameRegex, ulname)) {
+                else if (!Pattern.matches(nameRegex, udesignation)) {
                     JOptionPane.showMessageDialog(null, "In-valid Last Name");
                 }
 
@@ -371,27 +374,6 @@ public class Registration extends JFrame {
                 else if (!((male.isSelected()) || (female.isSelected()))) {
                     JOptionPane.showMessageDialog(null, "Select your gender");
                 }
-
-                // else if ((male.isSelected()) || (female.isSelected())) {
-
-                //     if (male.isSelected()) {
-                //         ugender = "Male";
-                //     }
-                //     else if (female.isSelected()) {
-                //         ugender = "Female";
-                //     }
-                //     else {
-                //         JOptionPane.showMessageDialog(null, "gender error");
-                //     }
-                // }
-
-                // else if (male.isSelected()) {
-                //     ugender = "Male";
-                // }
-
-                // else if (female.isSelected()) {
-                //     ugender = "Female";
-                // }
 
                 else if (!Pattern.matches(emailRegex, uemail)) {
                     JOptionPane.showMessageDialog(null, "In-valid E-mail");
@@ -422,7 +404,7 @@ public class Registration extends JFrame {
                     //for register query 
                     try {
                         DbConnect db = new DbConnect();
-                        String queryInsert = "INSERT INTO `employeeregistration`(`fastname`,`lastname`, `dob`, `contact`, `image`, `bloodgroup`, `gender`, `email`,`password`, `Paddress`, `Caddress`) VALUES ('"+ufname+"','"+ulname+"','"+udob+"','"+ucontactnumber+"','"+uimage+"','"+ubloodgroup+"','"+ugender+"','"+uemail+"','"+upass+"','"+upaddress+"','"+ucaddress+"')";
+                        String queryInsert = "INSERT INTO `employeeregistration`(`fastname`,`designation`, `dob`, `contact`, `image`, `bloodgroup`, `gender`, `email`,`password`, `Paddress`, `Caddress`) VALUES ('"+ufname+"','"+udesignation+"','"+udob+"','"+ucontactnumber+"','"+uimage+"','"+ubloodgroup+"','"+ugender+"','"+uemail+"','"+upass+"','"+upaddress+"','"+ucaddress+"')";
                         db.st.executeUpdate(queryInsert);
                         JOptionPane.showMessageDialog(null, "Registration Complete Successfully");
                         dispose();
