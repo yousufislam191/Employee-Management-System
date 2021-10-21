@@ -33,8 +33,8 @@ public class signin extends JFrame {
         setLayout(null);
 
         //icon set
-        // icon = new ImageIcon(getClass().getResource(".//image//icon.jpg"));
-        // setIconImage(icon.getImage());
+        icon = new ImageIcon(getClass().getResource(".//image//icon.jpg"));
+        setIconImage(icon.getImage());
 
         //header panel add
         headerPanel = new JPanel();
@@ -55,10 +55,10 @@ public class signin extends JFrame {
         add(body);
 
         //logo add
-        // logo = new ImageIcon(getClass().getResource(".//image//logo.png"));
-        // logolabel = new JLabel(logo);
-        // logolabel.setBounds(160, 10, logo.getIconWidth(), logo.getIconHeight());
-        // body.add(logolabel);
+        logo = new ImageIcon(getClass().getResource(".//image//logo.png"));
+        logolabel = new JLabel(logo);
+        logolabel.setBounds(160, 10, logo.getIconWidth(), logo.getIconHeight());
+        body.add(logolabel);
 
         //naming label field
         email = new JLabel("Email : ");
@@ -202,13 +202,8 @@ public class signin extends JFrame {
                         }
                         else {
                             JOptionPane.showMessageDialog(null, "Successfully User login");
-            
-                            // rs = st.executeQuery("SELECT * FROM `employeeregistration` WHERE email="+signinUserEmail);
-                            // DbConnect dbc = new DbConnect();
-                            // dbc.SelectRows(signinUserEmail);
-                            
                             dispose();
-                            new userPanle();
+                            new userPanle(userEmail.getText());
                         }
                     }
                     catch (Exception e2) {
