@@ -7,6 +7,7 @@ import java.util.regex.*;
 
 public class signin extends JFrame {
 
+    private JFrame f;
     private JPanel headerPanel, body;
     private JLabel heading, email, pass, registertxt, ortxt, logolabel;
     private JTextField userEmail;
@@ -26,15 +27,16 @@ public class signin extends JFrame {
 
     public signin () {
 
-        setSize(400, 550);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setLocationRelativeTo(null);
-        setResizable(false);
-        setLayout(null);
+        f = new JFrame("Employee Management System");
+        f.setSize(400, 550);
+        f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        f.setLocationRelativeTo(null);
+        f.setResizable(false);
+        f.setLayout(null);
 
         //icon set
         icon = new ImageIcon(getClass().getResource(".//image//icon.jpg"));
-        setIconImage(icon.getImage());
+        f.setIconImage(icon.getImage());
 
         //header panel add
         headerPanel = new JPanel();
@@ -45,14 +47,14 @@ public class signin extends JFrame {
         heading.setFont(headingfont);
         heading.setForeground(new Color(173, 239, 209));
         headerPanel.add(heading);
-        add(headerPanel);
+        f.add(headerPanel);
         
         //body panel add
         body = new JPanel();
         body.setBounds(0, 40, 400, 510);
         body.setBackground(new Color(0, 32, 63));
         body.setLayout(null);
-        add(body);
+        f.add(body);
 
         //logo add
         logo = new ImageIcon(getClass().getResource(".//image//logo.png"));
@@ -131,7 +133,7 @@ public class signin extends JFrame {
         body.add(ortxt);
 
         
-        setVisible(true);
+        f.setVisible(true);
         
         checkBox.addActionListener(new ActionListener() {
             
@@ -151,7 +153,7 @@ public class signin extends JFrame {
             
             @Override
             public void actionPerformed(ActionEvent e) {
-                dispose();
+                f.dispose();
                 new Registration();
             }
         });
@@ -195,6 +197,7 @@ public class signin extends JFrame {
                         }
                         if(signinUserEmail.equals(adminemail) && signinUserPass.equals(adminpass)) {
                             JOptionPane.showMessageDialog(null, "Successfully Admin Panel login");
+                            f.dispose();
                             new admin();
                         }
                         else if(flag == 0) {
@@ -202,7 +205,7 @@ public class signin extends JFrame {
                         }
                         else {
                             JOptionPane.showMessageDialog(null, "Successfully User login");
-                            dispose();
+                            f.dispose();
                             new userPanle(userEmail.getText());
                         }
                     }

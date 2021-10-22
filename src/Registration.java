@@ -8,6 +8,7 @@ import java.util.regex.*;
 
 public class Registration extends JFrame {
 
+    private JFrame f;
     private JPanel body;
     private JLabel heading, addImageLabel, photoFormate, addImgLabel, email, logolabel, firstName, designation, contactNumber, dateOfBirth, parmanentAddress, currentAddress, bloodGroup, confirmPassword, password, dateFormate, ortxt, gender;
     private JTextField inputFirstName, inputDesignation, inputContactNumber, inputEmail, inputDateOfBirth, inputParmanentAddress, inputCurrentAddress, inputBloodGroup;
@@ -31,22 +32,23 @@ public class Registration extends JFrame {
 
     public Registration() {
 
-        setSize(900, 700);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setLocationRelativeTo(null);
-        // setResizable(false);
-        setLayout(null);
+        f = new JFrame("Employee Management System");
+        f.setSize(900, 700);
+        f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        f.setLocationRelativeTo(null);
+        f.setResizable(false);
+        f.setLayout(null);
 
         // icon set
         icon = new ImageIcon(getClass().getResource(".//image//icon.jpg"));
-        setIconImage(icon.getImage());
+        f.setIconImage(icon.getImage());
 
         // body panel add
         body = new JPanel();
         body.setBounds(0, 0, 900, 700);
         body.setBackground(new Color(0, 32, 63));
         body.setLayout(null);
-        add(body);
+        f.add(body);
 
         // logo add
         logo = new ImageIcon(getClass().getResource(".//image//R_logo.png"));
@@ -241,7 +243,7 @@ public class Registration extends JFrame {
         female.setBorder(null);
         body.add(female);
 
-        setVisible(true);
+        f.setVisible(true);
 
         checkBox.addActionListener(new ActionListener() {
 
@@ -315,7 +317,7 @@ public class Registration extends JFrame {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                dispose();
+                f.dispose();
                 new signin();
             }
         });
@@ -407,7 +409,7 @@ public class Registration extends JFrame {
                         String queryInsert = "INSERT INTO `employeeregistration`(`fastname`,`designation`, `dob`, `contact`, `image`, `bloodgroup`, `gender`, `email`,`password`, `Paddress`, `Caddress`) VALUES ('"+ufname+"','"+udesignation+"','"+udob+"','"+ucontactnumber+"','"+uimage+"','"+ubloodgroup+"','"+ugender+"','"+uemail+"','"+upass+"','"+upaddress+"','"+ucaddress+"')";
                         db.st.executeUpdate(queryInsert);
                         JOptionPane.showMessageDialog(null, "Registration Complete Successfully");
-                        dispose();
+                        f.dispose();
                         new signin();
                     } 
                     catch (Exception e3) {

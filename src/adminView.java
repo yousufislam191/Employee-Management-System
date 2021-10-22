@@ -2,27 +2,36 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.sql.ResultSet;
-import javax.swing.border.*;
 
-public class userPanle extends JFrame {
+public class adminView extends JFrame {
 
     private JFrame f;
     private JPanel body;
-    private JLabel addImageLabel, addNameLabel, designationeLabel, idLabel, getidLabel, contactLabel, getcontactLabel, emailLabel, getemailLabel, dobLabel, getdobLabel, bloodgroupLabel, getbloodgroupLabel, getgenderLabel, paddressLabel, getpaddressLabel, caddressLabel, getcaddressLabel, joinDateLabel, getjoinDateLabel, positionLabel, getpositionLabel, salaryLabel, getsalaryLabel, duityTimeLabel, getduityTimeLabel, branchLabel, getbranchLabel;
+    private JLabel addImageLabel, addNameLabel, designationeLabel, idLabel, getidLabel, contactLabel, getcontactLabel,
+            emailLabel, getemailLabel, dobLabel, getdobLabel, bloodgroupLabel, getbloodgroupLabel, getgenderLabel,
+            paddressLabel, getpaddressLabel, caddressLabel, getcaddressLabel, joinDateLabel, getjoinDateLabel,
+            positionLabel, getpositionLabel, salaryLabel, getsalaryLabel, duityTimeLabel, getduityTimeLabel,
+            branchLabel, getbranchLabel;
     private ImageIcon icon;
     private JButton close;
+    private int flag = 0;
     private Cursor cursor = new Cursor(Cursor.HAND_CURSOR);
 
-    /*font name: Times New Roman, Sagor UI, Arial, Comfortaa, Montserrat, Trebuchet MS, Roboto, Verdana, Comic Sans MS*/
+    /*
+     * font name: Times New Roman, Sagor UI, Arial, Comfortaa, Montserrat, Trebuchet
+     * MS, Roboto, Verdana, Comic Sans MS
+     */
     private Font headingfont = new Font("Comic Sans MS", Font.BOLD, 35);
     private Font subheadingfont = new Font("Montserrat", Font.BOLD, 23);
-    private Font suppersubheadingfont = new Font("Verdana",Font.LAYOUT_LEFT_TO_RIGHT, 15);
-    private Font font = new Font("Trebuchet MS",Font.CENTER_BASELINE, 18);
+    private Font suppersubheadingfont = new Font("Verdana", Font.LAYOUT_LEFT_TO_RIGHT, 15);
+    private Font font = new Font("Trebuchet MS", Font.CENTER_BASELINE, 18);
 
     private ResultSet rs;
-    public String viewid, viewfirstname, viewdesignation, viewdob, viewcontact, viewimage, viewbloodgroup, viewgender, viewemail, viewpassword, viewPaddress, viewCaddress, viewJoiningDate, viewPosition, viewSalary, viewDuityTime, viewBranch;
+    public String viewid, viewfirstname, viewdesignation, viewdob, viewcontact, viewimage, viewbloodgroup, viewgender,
+            viewemail, viewpassword, viewPaddress, viewCaddress, viewJoiningDate, viewPosition, viewSalary,
+            viewDuityTime, viewBranch;
 
-    public userPanle(String signinUserEmail)  {
+    public adminView(String adminviewid) {
 
         f = new JFrame("Employee Management System");
         f.setSize(900, 700);
@@ -33,7 +42,7 @@ public class userPanle extends JFrame {
 
         // icon set
         icon = new ImageIcon(getClass().getResource(".//image//icon.jpg"));
-        f.setIconImage(icon.getImage());
+        setIconImage(icon.getImage());
 
         // body panel add
         body = new JPanel();
@@ -42,14 +51,13 @@ public class userPanle extends JFrame {
         body.setLayout(null);
         f.add(body);
 
-        //get data from database
         DbConnect db = new DbConnect();
         try {
-            rs = db.st.executeQuery("SELECT * FROM `employeeregistration` WHERE email='"+signinUserEmail+"'");
-            
-            while(rs.next()) {
+            rs = db.st.executeQuery("SELECT * FROM `employeeregistration` WHERE id='"+adminviewid+"'");
+
+            while (rs.next()) {
                 viewid = rs.getString("id");
-                viewfirstname = rs.getString("fastname");	
+                viewfirstname = rs.getString("fastname");
                 viewdesignation = rs.getString("designation");
                 viewdob = rs.getString("dob");
                 viewcontact = rs.getString("contact");
@@ -64,13 +72,14 @@ public class userPanle extends JFrame {
                 viewSalary = rs.getString("salary");
                 viewDuityTime = rs.getString("duitytime");
                 viewBranch = rs.getString("branch");
+
+                flag = 1;
             }
-        }
-        catch(Exception e2) {
-            JOptionPane.showMessageDialog(null, "Not Inserted any Data !!" +e2);
+        } catch (Exception e2) {
+            JOptionPane.showMessageDialog(null, "Not Inserted any Data !!" + e2);
         }
 
-        //add field
+        // add field
         addImageLabel = new JLabel();
         addImageLabel.setBounds(80, 50, 200, 200);
         addImageLabel.setBorder(BorderFactory.createLineBorder(new Color(35, 36, 40)));
@@ -165,7 +174,6 @@ public class userPanle extends JFrame {
         getcaddressLabel.setBorder(BorderFactory.createLineBorder(new Color(35, 36, 40)));
         body.add(getcaddressLabel);
 
-        //admin edit part
         joinDateLabel = new JLabel("Joining Date");
         joinDateLabel.setBounds(80, 460, 130, 50);
         joinDateLabel.setFont(font);
@@ -216,7 +224,7 @@ public class userPanle extends JFrame {
         getbranchLabel.setFont(suppersubheadingfont);
         body.add(getbranchLabel);
 
-        close=new JButton("Close");
+        close=new JButton("Back");
         close.setBounds(690,580,90,40);
         close.setFont(font);
         close.setBackground(new Color(35, 36, 40));
@@ -225,13 +233,21 @@ public class userPanle extends JFrame {
         close.setBorder(BorderFactory.createLineBorder(Color.WHITE));
         body.add(close);
 
-        f.setVisible(true);
+        if(flag == 0) {
+            JOptionPane.showMessageDialog(null, "This Id does not exist in database");
+            f.dispose();
+            new adminViewSearch(); 
+        }
+        else {
+            f.setVisible(true);
+        }
 
         close.addActionListener(new ActionListener() {
             
             @Override
             public void actionPerformed(ActionEvent e) {
                 f.dispose();
+                new adminViewSearch();
             }
         });
     }
