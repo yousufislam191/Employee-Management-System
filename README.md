@@ -1,6 +1,6 @@
 # Employee Management System
 
-### Feature: 
+### Features of this system: 
 
 - `src`: Login & Registration form fully validated by Regex. 
 - `src`: Admin and Multiple users login system through the login page.
