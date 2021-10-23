@@ -43,7 +43,7 @@ public class adminView extends JFrame {
 
         // icon set
         icon = new ImageIcon(getClass().getResource(".//image//icon.jpg"));
-        setIconImage(icon.getImage());
+        f.setIconImage(icon.getImage());
 
         // body panel add
         body = new JPanel();

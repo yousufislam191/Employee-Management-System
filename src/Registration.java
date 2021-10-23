@@ -306,7 +306,7 @@ public class Registration extends JFrame {
                             File file = fileChooser.getSelectedFile();
                             imagePath = file.getAbsolutePath();
                             chooseImage = new ImageIcon(new ImageIcon(imagePath).getImage().getScaledInstance(200, 200,
-                                    Image.SCALE_DEFAULT));
+                                    Image.SCALE_SMOOTH));
                             addImageLabel.setIcon(chooseImage);
                             flag = 1;
 
@@ -361,7 +361,7 @@ public class Registration extends JFrame {
                 }
 
                 else if (!Pattern.matches(nameRegex, udesignation)) {
-                    JOptionPane.showMessageDialog(null, "In-valid Last Name");
+                    JOptionPane.showMessageDialog(null, "In-valid Designation");
                 }
 
                 else if (!Pattern.matches(dobRegex, udob)) {
