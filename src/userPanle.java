@@ -94,12 +94,12 @@ public class userPanle extends JFrame {
 
         body.add(addImageLabel);
 
-        addNameLabel = new JLabel(viewfirstname);
+        addNameLabel = new JLabel(viewfirstname.toUpperCase());
         addNameLabel.setBounds(320, 60, 500, 50);
         addNameLabel.setFont(headingfont);
         body.add(addNameLabel);
 
-        designationeLabel = new JLabel(viewdesignation);
+        designationeLabel = new JLabel(viewdesignation.toUpperCase());
         designationeLabel.setBounds(320, 100, 400, 50);
         designationeLabel.setFont(subheadingfont);
         body.add(designationeLabel);
