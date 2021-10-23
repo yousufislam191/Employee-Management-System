@@ -12,9 +12,10 @@ public class adminView extends JFrame {
             paddressLabel, getpaddressLabel, caddressLabel, getcaddressLabel, joinDateLabel, getjoinDateLabel,
             positionLabel, getpositionLabel, salaryLabel, getsalaryLabel, duityTimeLabel, getduityTimeLabel,
             branchLabel, getbranchLabel;
-    private ImageIcon icon;
+    private ImageIcon icon, getimg, setimg;
     private JButton close;
     private int flag = 0;
+    private byte[] b;
     private Cursor cursor = new Cursor(Cursor.HAND_CURSOR);
 
     /*
@@ -53,7 +54,7 @@ public class adminView extends JFrame {
 
         DbConnect db = new DbConnect();
         try {
-            rs = db.st.executeQuery("SELECT * FROM `employeeregistration` WHERE id='"+adminviewid+"'");
+            rs = db.st.executeQuery("SELECT * FROM `employeeregistration` WHERE id='" + adminviewid + "'");
 
             while (rs.next()) {
                 viewid = rs.getString("id");
@@ -61,7 +62,7 @@ public class adminView extends JFrame {
                 viewdesignation = rs.getString("designation");
                 viewdob = rs.getString("dob");
                 viewcontact = rs.getString("contact");
-                viewimage = rs.getString("image");
+                b = rs.getBytes("image");
                 viewbloodgroup = rs.getString("bloodgroup");
                 viewgender = rs.getString("gender");
                 viewemail = rs.getString("email");
@@ -83,6 +84,13 @@ public class adminView extends JFrame {
         addImageLabel = new JLabel();
         addImageLabel.setBounds(80, 50, 200, 200);
         addImageLabel.setBorder(BorderFactory.createLineBorder(new Color(35, 36, 40)));
+
+        getimg = new ImageIcon(b);
+        Image im = getimg.getImage();
+        Image MyImg = im.getScaledInstance(200, 200, Image.SCALE_SMOOTH);
+        setimg = new ImageIcon(MyImg);
+        addImageLabel.setIcon(setimg);
+
         body.add(addImageLabel);
 
         addNameLabel = new JLabel(viewfirstname);
@@ -224,8 +232,8 @@ public class adminView extends JFrame {
         getbranchLabel.setFont(suppersubheadingfont);
         body.add(getbranchLabel);
 
-        close=new JButton("Back");
-        close.setBounds(690,580,90,40);
+        close = new JButton("Back");
+        close.setBounds(690, 580, 90, 40);
         close.setFont(font);
         close.setBackground(new Color(35, 36, 40));
         close.setForeground(new Color(250, 246, 240));
@@ -233,17 +241,16 @@ public class adminView extends JFrame {
         close.setBorder(BorderFactory.createLineBorder(Color.WHITE));
         body.add(close);
 
-        if(flag == 0) {
+        if (flag == 0) {
             JOptionPane.showMessageDialog(null, "This Id does not exist in database");
             f.dispose();
-            new adminViewSearch(); 
-        }
-        else {
+            new adminViewSearch();
+        } else {
             f.setVisible(true);
         }
 
         close.addActionListener(new ActionListener() {
-            
+
             @Override
             public void actionPerformed(ActionEvent e) {
                 f.dispose();

@@ -17,7 +17,7 @@ public class updateSearch extends JFrame {
     private Font headingfont = new Font("Courier", Font.BOLD, 20);
     private Font msgfont = new Font("Verdana", Font.LAYOUT_LEFT_TO_RIGHT, 15);
 
-    public updateSearch () {
+    public updateSearch() {
 
         f = new JFrame("Employee Management System");
         f.setSize(500, 270);
@@ -26,7 +26,7 @@ public class updateSearch extends JFrame {
         f.setResizable(false);
         f.setLayout(null);
 
-        //icon set
+        // icon set
         icon = new ImageIcon(getClass().getResource(".//image//icon.jpg"));
         f.setIconImage(icon.getImage());
 
@@ -57,17 +57,17 @@ public class updateSearch extends JFrame {
         searchid.setBorder(null);
         body.add(searchid);
 
-        btn1=new JButton("Search");
-        btn1.setBounds(240,150,80,30);
-        btn2=new JButton("Back");
-        btn2.setBounds(340,150,80,30);
+        btn1 = new JButton("Search");
+        btn1.setBounds(240, 150, 80, 30);
+        btn2 = new JButton("Back");
+        btn2.setBounds(340, 150, 80, 30);
 
-        btn [0] = btn1;
-        btn [1] = btn2;
+        btn[0] = btn1;
+        btn[1] = btn2;
 
-        for(int i=0; i<2; i++) {
+        for (int i = 0; i < 2; i++) {
 
-            btn[i].setFont(new Font("serif",Font.BOLD,18));
+            btn[i].setFont(new Font("serif", Font.BOLD, 18));
             btn[i].setBackground(new Color(173, 239, 209));
             btn[i].setForeground(new Color(41, 47, 69));
             btn[i].setCursor(cursor);
@@ -76,21 +76,19 @@ public class updateSearch extends JFrame {
             body.add(btn[i]);
         }
 
-
         f.setVisible(true);
 
         btn1.addActionListener(new ActionListener() {
-            
+
             @Override
             public void actionPerformed(ActionEvent e) {
-                
-                String id = searchid.getText();
-                String idregex= "[0-9]+";
 
-                if (!Pattern.matches(idregex,id)) {
-                    JOptionPane.showMessageDialog(null,"In-valid id");
-                }
-                else {
+                String id = searchid.getText();
+                String idregex = "[0-9]+";
+
+                if (!Pattern.matches(idregex, id)) {
+                    JOptionPane.showMessageDialog(null, "In-valid id");
+                } else {
                     f.dispose();
                     new Update_Employee(searchid.getText());
                 }
@@ -98,7 +96,7 @@ public class updateSearch extends JFrame {
         });
 
         btn2.addActionListener(new ActionListener() {
-            
+
             @Override
             public void actionPerformed(ActionEvent e) {
                 f.dispose();

@@ -1,7 +1,9 @@
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-import java.io.File;
+import java.io.*;
+import java.sql.*;
+
 import javax.swing.border.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import java.util.regex.*;
@@ -10,8 +12,11 @@ public class Registration extends JFrame {
 
     private JFrame f;
     private JPanel body;
-    private JLabel heading, addImageLabel, photoFormate, addImgLabel, email, logolabel, firstName, designation, contactNumber, dateOfBirth, parmanentAddress, currentAddress, bloodGroup, confirmPassword, password, dateFormate, ortxt, gender;
-    private JTextField inputFirstName, inputDesignation, inputContactNumber, inputEmail, inputDateOfBirth, inputParmanentAddress, inputCurrentAddress, inputBloodGroup;
+    private JLabel heading, addImageLabel, photoFormate, addImgLabel, email, logolabel, firstName, designation,
+            contactNumber, dateOfBirth, parmanentAddress, currentAddress, bloodGroup, confirmPassword, password,
+            dateFormate, ortxt, gender;
+    private JTextField inputFirstName, inputDesignation, inputContactNumber, inputEmail, inputDateOfBirth,
+            inputParmanentAddress, inputCurrentAddress, inputBloodGroup;
     private JButton addImageBtn, signinBtn, registerBtn;
     private ImageIcon icon, addImage, logo, chooseImage;
     private JCheckBox checkBox;
@@ -300,9 +305,11 @@ public class Registration extends JFrame {
                         if (result == JFileChooser.APPROVE_OPTION) {
                             File file = fileChooser.getSelectedFile();
                             imagePath = file.getAbsolutePath();
-                            chooseImage = new ImageIcon(new ImageIcon(imagePath).getImage().getScaledInstance(200, 200, Image.SCALE_DEFAULT));
+                            chooseImage = new ImageIcon(new ImageIcon(imagePath).getImage().getScaledInstance(200, 200,
+                                    Image.SCALE_DEFAULT));
                             addImageLabel.setIcon(chooseImage);
                             flag = 1;
+
                         } else if (result == JFileChooser.CANCEL_OPTION) {
                             JOptionPane.showMessageDialog(null, "No file selected");
                         }
@@ -338,8 +345,6 @@ public class Registration extends JFrame {
                 String ucpass = inputConfirmPassword.getText();
                 String upaddress = inputParmanentAddress.getText();
                 String ucaddress = inputCurrentAddress.getText();
-                String uimage = addImageLabel.getText();
-                uimage = uimage.replace("\\", "\\\\");
 
                 // validation input field
                 String nameRegex = "^[a-zA-Z. ]+$";
@@ -360,8 +365,8 @@ public class Registration extends JFrame {
                 }
 
                 else if (!Pattern.matches(dobRegex, udob)) {
-                    JOptionPane.showMessageDialog(null,"In-valid Date of Birth. \r\n" 
-                        + "You must be follow this format (dd.mm.yyyy)");
+                    JOptionPane.showMessageDialog(null,
+                            "In-valid Date of Birth. \r\n" + "You must be follow this format (dd.mm.yyyy)");
                 }
 
                 else if (!Pattern.matches(mobileRegex, ucontactnumber)) {
@@ -369,8 +374,8 @@ public class Registration extends JFrame {
                 }
 
                 else if (!Pattern.matches(bloodRegex, ubloodgroup)) {
-                    JOptionPane.showMessageDialog(null,"In-valid Blood Group. \r\n" 
-                        + "You must write following this format (AB+ / O- / A+)");
+                    JOptionPane.showMessageDialog(null,
+                            "In-valid Blood Group. \r\n" + "You must write following this format (AB+ / O- / A+)");
                 }
 
                 else if (!((male.isSelected()) || (female.isSelected()))) {
@@ -403,17 +408,34 @@ public class Registration extends JFrame {
                 }
 
                 else {
-                    //for register query 
+                    // for register query
                     try {
-                        DbConnect db = new DbConnect();
-                        String queryInsert = "INSERT INTO `employeeregistration`(`fastname`,`designation`, `dob`, `contact`, `image`, `bloodgroup`, `gender`, `email`,`password`, `Paddress`, `Caddress`) VALUES ('"+ufname+"','"+udesignation+"','"+udob+"','"+ucontactnumber+"','"+uimage+"','"+ubloodgroup+"','"+ugender+"','"+uemail+"','"+upass+"','"+upaddress+"','"+ucaddress+"')";
-                        db.st.executeUpdate(queryInsert);
+
+                        Class.forName("com.mysql.cj.jdbc.Driver");
+                        Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/javaems", "root", "");
+
+                        String queryInsert = "INSERT INTO `employeeregistration`(`fastname`,`designation`, `dob`, `contact`, `image`, `bloodgroup`, `gender`, `email`,`password`, `Paddress`, `Caddress`) VALUES (?,?,?,?,?,?,?,?,?,?,?)";
+                        PreparedStatement pst = con.prepareStatement(queryInsert);
+                        FileInputStream uimage = new FileInputStream(imagePath);
+
+                        pst.setString(1, inputFirstName.getText());
+                        pst.setString(2, inputDesignation.getText());
+                        pst.setString(3, inputDateOfBirth.getText());
+                        pst.setString(4, inputContactNumber.getText());
+                        pst.setBinaryStream(5, uimage, uimage.available());
+                        pst.setString(6, inputBloodGroup.getText());
+                        pst.setString(7, ugender);
+                        pst.setString(8, inputEmail.getText());
+                        pst.setString(9, inputPassword.getText());
+                        pst.setString(10, inputParmanentAddress.getText());
+                        pst.setString(11, inputCurrentAddress.getText());
+
+                        pst.executeUpdate();
                         JOptionPane.showMessageDialog(null, "Registration Complete Successfully");
                         f.dispose();
                         new signin();
-                    } 
-                    catch (Exception e3) {
-                        JOptionPane.showMessageDialog(null, "Not Inserted any Data !!" +e3);
+                    } catch (Exception e3) {
+                        JOptionPane.showMessageDialog(null, "Not Inserted any Data !!" + e3);
                     }
                 }
             }

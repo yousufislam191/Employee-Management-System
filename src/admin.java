@@ -12,11 +12,11 @@ public class admin implements ActionListener {
     private Font btnfont = new Font("Montserrat", Font.BOLD, 20);
 
     private JFrame f;
-    private JButton b1,b2,b3;
+    private JButton b1, b2, b3;
     private JButton[] btn = new JButton[4];
     private Cursor cursor = new Cursor(Cursor.HAND_CURSOR);
 
-    public admin()  {
+    public admin() {
 
         f = new JFrame("Employee Management System");
         f.setSize(500, 320);
@@ -31,7 +31,7 @@ public class admin implements ActionListener {
 
         // body panel add
         body = new JPanel();
-        body.setBounds(0, 0,500, 320);
+        body.setBounds(0, 0, 500, 320);
         body.setBackground(new Color(244, 244, 244));
         body.setLayout(null);
         f.add(body);
@@ -48,20 +48,20 @@ public class admin implements ActionListener {
         heading.setBounds(90, 12, 500, 45);
         body.add(heading);
 
-        b1=new JButton("View Employee Details");
-        b1.setBounds(110,80,260,40);
-        b2=new JButton("Remove Employee");
-        b2.setBounds(130,140,220,40);
-        b3=new JButton("Update Employee");
-        b3.setBounds(128,200,220,40);
+        b1 = new JButton("View Employee Details");
+        b1.setBounds(110, 80, 260, 40);
+        b2 = new JButton("Remove Employee");
+        b2.setBounds(130, 140, 220, 40);
+        b3 = new JButton("Update Employee");
+        b3.setBounds(128, 200, 220, 40);
 
-        btn [0] = b1;
-        btn [1] = b2;
-        btn [2] = b3;
+        btn[0] = b1;
+        btn[1] = b2;
+        btn[2] = b3;
 
-        for(int i=0; i<3; i++) {
+        for (int i = 0; i < 3; i++) {
 
-            btn[i].setFont(new Font("serif",Font.BOLD,15));
+            btn[i].setFont(new Font("serif", Font.BOLD, 15));
             btn[i].addActionListener(this);
             btn[i].setBackground(new Color(244, 244, 244));
             btn[i].setForeground(new Color(41, 47, 69));
@@ -74,17 +74,17 @@ public class admin implements ActionListener {
         f.setVisible(true);
     }
 
-    public void actionPerformed(ActionEvent ae){
- 
-        if(ae.getSource()==b1){ // new View_Employee();
+    public void actionPerformed(ActionEvent ae) {
+
+        if (ae.getSource() == b1) { // new View_Employee();
             f.dispose();
             new adminViewSearch();
         }
-        if(ae.getSource()==b2){ // new Remove_Employee();
+        if (ae.getSource() == b2) { // new Remove_Employee();
             f.dispose();
             new searchRemove();
         }
-        if(ae.getSource()==b3){ // new Search_Employee();
+        if (ae.getSource() == b3) { // new Search_Employee();
             f.dispose();
             new updateSearch();
         }
