@@ -2,7 +2,7 @@
 
 ### Features of this system: 
 
-- `src`: Login & Registration form fully validated by Regex. 
+- : Login & Registration form fully validated by Regex. 
 - `src`: Admin and Multiple users login system through the login page.
 - `src`: After admin login, will go to the admin dashboard, and users will go to the user panel after users login and they will see the data that they provided when they registered.
 - `src`: After admin login, they will go to the admin dashboard and the admin will be able to update, delete and view the data of those users who are registered and whose data is in the database.
