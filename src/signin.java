@@ -11,7 +11,7 @@ public class signin extends JFrame {
     private JPanel headerPanel, body;
     private JLabel heading, email, pass, registertxt, ortxt, logolabel;
     private JTextField userEmail;
-    private JButton signinBtn, registerBtn;
+    private JButton signinBtn, registerBtn, forgotpass;
     private Cursor cursor = new Cursor(Cursor.HAND_CURSOR);
     private ImageIcon icon, logo;
     private JCheckBox checkBox;
@@ -81,7 +81,7 @@ public class signin extends JFrame {
         // input field
         userEmail = new JTextField();
         userEmail.setBounds(50, 140, 290, 30);
-        userEmail.setBackground(Color.WHITE);
+        userEmail.setBackground(new Color(225, 229, 232));
         userEmail.setForeground(Color.BLACK);
         userEmail.setFont(txtfont);
         userEmail.setBorder(null);
@@ -89,7 +89,7 @@ public class signin extends JFrame {
 
         userPass = new JPasswordField();
         userPass.setBounds(50, 220, 290, 30);
-        userPass.setBackground(Color.WHITE);
+        userPass.setBackground(new Color(225, 229, 232));
         userPass.setForeground(Color.BLACK);
         userPass.setFont(txtfont);
         userPass.setBorder(null);
@@ -102,6 +102,15 @@ public class signin extends JFrame {
         checkBox.setForeground(new Color(173, 239, 209));
         checkBox.setBorder(null);
         body.add(checkBox);
+
+        //forgot pass
+        forgotpass = new JButton("Forgot password?");
+        forgotpass.setForeground(new Color(173, 239, 209));
+        forgotpass.setBackground(new Color(0, 32, 63));
+        forgotpass.setBorder(null);
+        forgotpass.setBounds(190, 260, 200, 15);
+        forgotpass.setCursor(cursor);
+        body.add(forgotpass);
 
         // button add
         signinBtn = new JButton("Sign in");
@@ -144,6 +153,15 @@ public class signin extends JFrame {
                 } else {
                     userPass.setEchoChar('\u25CF');
                 }
+            }
+        });
+
+        forgotpass.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                f.dispose();
+                new forgotPassSetp1();
             }
         });
 
@@ -203,7 +221,7 @@ public class signin extends JFrame {
                             new userPanle(userEmail.getText());
                         }
                     } catch (Exception e2) {
-                        System.err.println("Login Error :" + e2);
+                        JOptionPane.showMessageDialog(null,"Login Error :" + e2);
                     }
                 }
             }

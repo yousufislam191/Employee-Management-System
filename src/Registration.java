@@ -164,7 +164,7 @@ public class Registration extends JFrame {
 
         for (int i = 0; i < 8; i++) {
             textFields[i].setFont(txtfont);
-            textFields[i].setBackground(Color.WHITE);
+            textFields[i].setBackground(new Color(225, 229, 232));
             textFields[i].setForeground(Color.BLACK);
             textFields[i].setBorder(null);
             body.add(textFields[i]);
@@ -182,7 +182,7 @@ public class Registration extends JFrame {
 
         for (int i = 0; i < 2; i++) {
             passFields[i].setFont(txtfont);
-            passFields[i].setBackground(Color.WHITE);
+            passFields[i].setBackground(new Color(225, 229, 232));
             passFields[i].setForeground(Color.BLACK);
             passFields[i].setBorder(null);
             body.add(passFields[i]);
