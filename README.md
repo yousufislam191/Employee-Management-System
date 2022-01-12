@@ -10,4 +10,8 @@
 - Users will go to their user panel after users login and they will see the data that they provided when they registered.
 - After login as an Admin, they will go to the admin dashboard and the admin will be able to update, delete and view the data of those users who are registered and whose data is in the database.
 
-> If you want to customize the folder structure, open .vscode/settings.json and update the related settings there.
+> Thanks for viewing this repository.
+
+### Live output of this project.
+https://user-images.githubusercontent.com/63366048/149181466-9f60e6ba-f980-4ba4-aec1-6983f225d664.mp4
+
